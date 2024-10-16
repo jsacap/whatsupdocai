@@ -1,13 +1,12 @@
 "use client";
-import Image from "next/image";
 import ChatRoom from "@/components/ChatRoom";
-import FileUploader from "./components/Fi";
-import { IFile, fetchFiles, saveFile, deleteFile } from "@/services/file";
-import { IRoom, createRoom, fetchRooms, deleteRoom } from "@/services/room"; // Added deleteRoom
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
+import { IFile, deleteFile, fetchFiles } from "@/services/file";
+import { IRoom, createRoom, deleteRoom, fetchRooms } from "@/services/room"; // Added deleteRoom
 import { Separator } from "@radix-ui/react-separator";
-import { useEffect, useState, MouseEvent } from "react";
+import { MouseEvent, useEffect, useState } from "react";
+import FileUploader from "./components/Fi";
 
 export default function Home() {
   const [rooms, setRooms] = useState<IRoom[]>([]);
