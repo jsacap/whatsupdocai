@@ -30,7 +30,11 @@ export default function ChatInterface() {
     <div className="mt-6 w-full max-w-2xl mx-auto p-4 bg-gray-800 rounded-lg shadow-lg">
       <div className="h-96 overflow-y-auto flex flex-col gap-4 p-4">
         {messages.map((msg, index) => (
-          <Message key={index} sender={msg.sender} text={msg.text} />
+          <Message
+            key={index}
+            sender={msg.sender as "user" | "ai"}
+            text={msg.text}
+          />
         ))}
       </div>
       <div className="mt-4 flex items-center gap-2">
