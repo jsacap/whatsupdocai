@@ -1,6 +1,5 @@
-import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
+import { useState } from "react";
 import Message from "./Message";
 
 export default function ChatInterface() {
@@ -38,7 +37,7 @@ export default function ChatInterface() {
         ))}
       </div>
       <div className="mt-4 flex items-center gap-2">
-        <Input
+        <input
           className="w-full"
           value={input}
           onChange={(e) => setInput(e.target.value)}
