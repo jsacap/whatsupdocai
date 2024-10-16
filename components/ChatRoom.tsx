@@ -22,7 +22,7 @@ export default function ChatRoom({
   const onSubmitInput = async (e: MouseEvent<HTMLElement>) => {
     e.preventDefault();
     if (!message) return;
-    let currChats = [...chats];
+    const currChats = [...chats];
     try {
       setSubmitting(true);
       const chat = await postChat({
