@@ -1,10 +1,9 @@
 "use client";
 import Image from "next/image";
-
 import ChatRoom from "@/components/ChatRoom";
 import FileUploader from "./components/Fi";
-import { IFile, fetchFiles } from "@/services/file";
-import { IRoom, createRoom, fetchRooms } from "@/services/room";
+import { IFile, fetchFiles, saveFile, deleteFile } from "@/services/file";
+import { IRoom, createRoom, fetchRooms, deleteRoom } from "@/services/room"; // Added deleteRoom
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Separator } from "@radix-ui/react-separator";
@@ -29,16 +28,44 @@ export default function Home() {
     }
   };
 
+  const handleDeleteRoom = async (roomId: number) => {
+    try {
+      await deleteRoom(roomId); // Call delete service
+      setRooms((prevRooms) => prevRooms.filter((room) => room.id !== roomId));
+      if (roomId === roomId) {
+        setRoomId(undefined); // Clear selected room if it was deleted
+      }
+    } catch (err) {
+      console.error("Error deleting room:", err);
+    }
+  };
+
+  const handleDeleteFile = async (fileId: number) => {
+    try {
+      await deleteFile(fileId); // Call delete service
+      setFiles((prevFiles) => prevFiles.filter((file) => file.id !== fileId));
+      if (fileId === fileId) {
+        setFileId(undefined); // Clear selected file if it was deleted
+      }
+    } catch (err) {
+      console.error("Error deleting file:", err);
+    }
+  };
+
   const handleSelectRoom =
     (id: number | undefined) => (e: MouseEvent<HTMLElement>) => {
       e.preventDefault();
-      setRoomId(id);
+      if (id !== undefined) {
+        setRoomId(id);
+      }
     };
 
   const handleSelectFile =
     (id: number | undefined) => (e: MouseEvent<HTMLElement>) => {
       e.preventDefault();
-      setFileId(id);
+      if (id !== undefined) {
+        setFileId(id);
+      }
     };
 
   useEffect(() => {
@@ -73,9 +100,21 @@ export default function Home() {
               className={`cursor-pointer p-4 ${
                 roomId === room.id ? "bg-gray-200" : ""
               }`}
-              onClick={handleSelectRoom(room.id)}
             >
-              <CardContent>{room.created_at?.toString()}</CardContent>
+              <div className="flex justify-between items-center">
+                <CardContent onClick={handleSelectRoom(room.id)}>
+                  {room.created_at?.toString()}
+                </CardContent>
+                <Button
+                  variant="destructive"
+                  className="ml-2"
+                  onClick={() =>
+                    room.id !== undefined && handleDeleteRoom(room.id)
+                  }
+                >
+                  Delete
+                </Button>
+              </div>
             </Card>
           ))}
         </div>
@@ -91,9 +130,21 @@ export default function Home() {
               className={`cursor-pointer p-4 ${
                 fileId === file.id ? "bg-gray-200" : ""
               }`}
-              onClick={handleSelectFile(file.id)}
             >
-              <CardContent>{file.name}</CardContent>
+              <div className="flex justify-between items-center">
+                <CardContent onClick={handleSelectFile(file.id)}>
+                  {file.name}
+                </CardContent>
+                <Button
+                  variant="destructive"
+                  className="ml-2"
+                  onClick={() =>
+                    file.id !== undefined && handleDeleteFile(file.id)
+                  }
+                >
+                  Delete
+                </Button>
+              </div>
             </Card>
           ))}
         </div>
@@ -101,7 +152,7 @@ export default function Home() {
 
       <div className="flex-1 p-4">
         {roomId && fileId ? (
-          <ChatRoom roomId={roomId as number} fileId={fileId as number} />
+          <ChatRoom roomId={roomId!} fileId={fileId!} />
         ) : (
           <p>Select one room and one file</p>
         )}

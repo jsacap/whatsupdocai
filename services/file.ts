@@ -47,3 +47,12 @@ export async function saveFile(file: File): Promise<IFile> {
 
   return data;
 }
+
+export async function deleteFile(fileId: number): Promise<void> {
+  const { error } = await supabaseClient
+    .from("files")
+    .delete()
+    .eq("id", fileId);
+
+  if (error) throw error;
+}
