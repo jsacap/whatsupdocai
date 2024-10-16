@@ -31,7 +31,6 @@ export async function createRoom(): Promise<IRoom> {
   return data;
 }
 
-// Delete a chat room from the database.
 export async function deleteRoom(roomId: number): Promise<void> {
   const { error } = await supabaseClient
     .from("rooms")

@@ -23,6 +23,7 @@ export default function Home() {
       const newRoom = await createRoom();
       setRooms((v) => [newRoom, ...v]);
       setRoomId(newRoom.id);
+      setFileId(undefined); // Reset the file selection for the new room
     } catch (err) {
       console.error(err);
     }
@@ -30,11 +31,14 @@ export default function Home() {
 
   const handleDeleteRoom = async (roomId: number) => {
     try {
-      await deleteRoom(roomId); // Call delete service
+      await deleteRoom(roomId);
       setRooms((prevRooms) => prevRooms.filter((room) => room.id !== roomId));
       if (roomId === roomId) {
         setRoomId(undefined); // Clear selected room if it was deleted
       }
+
+      // Clear chat content
+      setFileId(undefined); // Clear selected file if the room is deleted
     } catch (err) {
       console.error("Error deleting room:", err);
     }
