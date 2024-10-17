@@ -3,10 +3,10 @@ import ChatRoom from "@/components/ChatRoom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { IFile, deleteFile, fetchFiles } from "@/services/file";
-import { IRoom, createRoom, deleteRoom, fetchRooms } from "@/services/room"; // Added deleteRoom
+import { IRoom, createRoom, deleteRoom, fetchRooms } from "@/services/room";
 import { Separator } from "@radix-ui/react-separator";
 import { MouseEvent, useEffect, useState } from "react";
-import FileUploader from "../Fi";
+import FileUploader from "../components/Fi";
 
 export default function ChatHome() {
   const [rooms, setRooms] = useState<IRoom[]>([]);
@@ -45,10 +45,10 @@ export default function ChatHome() {
 
   const handleDeleteFile = async (fileId: number) => {
     try {
-      await deleteFile(fileId); // Call delete service
+      await deleteFile(fileId);
       setFiles((prevFiles) => prevFiles.filter((file) => file.id !== fileId));
       if (fileId === fileId) {
-        setFileId(undefined); // Clear selected file if it was deleted
+        setFileId(undefined);
       }
     } catch (err) {
       console.error("Error deleting file:", err);

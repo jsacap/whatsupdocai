@@ -22,11 +22,12 @@ export default function Hero() {
         {/* Right: Image */}
         <div className="md:w-1/2 flex justify-center">
           <Image
-            src="/hero1.webp"
+            src="/hero2.webp"
             alt="AI-powered PDF document chat"
             width={500}
             height={400}
-            className="rounded-lg shadow-md"
+            className="shadow-md"
+            style={{ borderRadius: "1rem" }}
           />
         </div>
       </div>
