@@ -2,6 +2,9 @@
 const nextConfig = {
   reactStrictMode: true,
   output: "export",
+  images: {
+    unoptimized: true, // Disable Next.js image optimization for static export
+  },
   webpack: (config, { isServer }) => {
     // See https://webpack.js.org/configuration/resolve/#resolvealias
     config.resolve.alias = {

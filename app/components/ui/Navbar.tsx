@@ -1,8 +1,8 @@
 export default function Navbar() {
   return (
-    <nav className="bg-gray-800 p-4">
-      <div className="flex justify-center">
-        <h1 className="text-white text-2xl font-bold">WhatsUpDocAi</h1>
+    <nav className="bg-heroBg p-4 fixed">
+      <div className="flex justify-between">
+        <h1 className="text-primary text-xl font-bold">WhatsUpDocAi</h1>
       </div>
     </nav>
   );
